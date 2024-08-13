@@ -1,5 +1,13 @@
 import pygame
 from random import randint, random
+class Canhao:
+    def __init__(self):
+        self.imagem = pygame.image.load('assets/img/canhao.png')
+    
+
+class Bolinha:
+    def __init__(self):
+        self.imagem = pygame.image.load('assets/img/bola+canhao.png')
 
 class Atrator:
 
