@@ -1,6 +1,8 @@
 import pygame
 from random import randint, random
 
+class Atrator:
+
 
 class TelaInicial:
     def __init__(self, largura_jogo, altura_jogo, fonte_padrao):
