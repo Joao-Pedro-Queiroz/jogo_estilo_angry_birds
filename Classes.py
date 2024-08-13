@@ -5,7 +5,7 @@ class Atrator:
     def __init__(self, posição, raio, gravidade, tamanho):
         self.imagem_atrator = pygame.image.load('assets/img/planeta2.png')
         self.tamanho_imagem = tamanho
-        self.posicao = np.array(posição)    
+        self.posicao = posição   
         self.raio = raio
         self.gravidade = gravidade
 
