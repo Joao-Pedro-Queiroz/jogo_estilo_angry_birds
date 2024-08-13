@@ -1,15 +1,16 @@
 import pygame
 from random import randint, random
 
-class Atrator:
+# class Atrator:
 
 
 class TelaInicial:
     def __init__(self, largura_jogo, altura_jogo, fonte_padrao):
         self.largura_jogo = largura_jogo
         self.altura_jogo = altura_jogo
+        self.image_fundo = pygame.image.load('jogo_estilo_angry_birds/assets/img/starfield.png')        
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
-        self.image_fundo = pygame.image.load('assets/img/starfield.png') # Carrega uma imagem
+ # Carrega uma imagem
         self.tamanho_fundo = (largura_jogo, altura_jogo)
     
 
