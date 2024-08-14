@@ -1,9 +1,20 @@
 import pygame
 from random import randint, random
 import numpy as np
+class Torre:
+    def __init__(self,tamanho,posicao):
+        self.imagem = pygame.image.load('jogo_estilo_angry_birds/assets/img/torre.png')
+        self.tamanho = tamanho 
+        self.posicao =posicao
+
+    def desenha(self,window):
+        torre = pygame.transform.scale(self.imagem, self.tamanho) # Redefinir dimensão da imagem
+        window.blit(torre, self.posicao) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+
+
 class Canhao:
     def __init__(self,tamanho,posicao):
-        self.imagem = pygame.image.load('assets/img/canhao.png')
+        self.imagem = pygame.image.load('jogo_estilo_angry_birds/assets/img/canhao.png')
         self.tamanho_imagem= tamanho
         self.posicao = posicao
 
@@ -16,7 +27,7 @@ class Canhao:
 
 class Atrator:
     def __init__(self, posição, raio, gravidade, tamanho):
-        self.imagem_atrator = pygame.image.load('assets/img/planeta2.png')
+        self.imagem_atrator = pygame.image.load('jogo_estilo_angry_birds/assets/img/planeta1.png')
         self.tamanho_imagem = tamanho
         self.posicao = posição   
         self.raio = raio
