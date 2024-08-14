@@ -1,5 +1,18 @@
 import pygame
+from random import randint, random
 import numpy as np
+class Canhao:
+    def __init__(self,tamanho,posicao):
+        self.imagem = pygame.image.load('assets/img/canhao.png')
+        self.tamanho_imagem= tamanho
+        self.posicao = posicao
+
+    def desenha(self, window):
+        canhao = pygame.transform.scale(self.imagem, self.tamanho_imagem) # Redefinir dimensão da imagem
+        window.blit(canhao, self.posicao) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+
+
+        
 
 class Atrator:
     def __init__(self, posição, raio, gravidade, tamanho):
@@ -8,6 +21,7 @@ class Atrator:
         self.posicao = posição   
         self.raio = raio
         self.gravidade = gravidade
+        
 
         
     def calcula_atracao(self, posicao_jogador):
@@ -27,6 +41,40 @@ class Atrator:
     def desenha(self, window):
         nave = pygame.transform.scale(self.imagem_atrator, self.tamanho_imagem) # Redefinir dimensão da imagem
         window.blit(nave, self.posicao) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+
+class Bolinha():
+    def __init__(self,s0,v0,quantidade,torre,tamanho):
+        self.imagem = pygame.image.load('assets/img/bola+canhao.png')
+        self.posicoes = []
+        self.velocidades = []
+        self.s0 = s0
+        self.v0=v0
+        self.torre=torre
+        self.tamanho=tamanho
+        self.quantidade=quantidade
+        self.atrator = Atrator
+        for i in range(quantidade):
+            self.posicoes.append(self.s0)
+            self.velocidades.append(self.v0)
+        for i in range(len(self.velocidades)):
+            p = np.random.rand()
+            self.velocidades[i]=self.elocidades[i]*(p+1) 
+    
+    def atualiza_estado(self,posicoes,velocidades,torre):
+            for i in range(len(posicoes)):
+                if posicoes[i][0]<10 or posicoes[i][0]>390 or posicoes[i][1]<10 or posicoes[i][1]>390: # Se eu chegar ao limite da tela, reinicio a posição do personagem
+                    posicoes[i]= self.s0
+                    velocidades[i] = torre-self.v0
+                    velocidades[i]= velocidades[i]*0.05
+                else:
+                    atracao = self.atrator.calcula_atracao(posicoes)
+                    velocidades[i]= velocidades[i] + atracao
+                    posicoes[i] = posicoes[i] +  velocidades[i]
+    
+    def desenha(self,window):
+        for i in range(self.quantidade):
+            bolinha = pygame.transform.scale(self.imagem, self.tamanho) # Redefinir dimensão da imagem
+            window.blit(bolinha, self.posicoes[i]) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
 
 class TelaInicial:
