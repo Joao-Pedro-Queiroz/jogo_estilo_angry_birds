@@ -195,10 +195,7 @@ class Jogo:
 
             if self.indice_tela_atual == -1:
                 rodando = False
-            elif self.indice_tela_atual == 1:
-                tela_atual = self.telas[self.indice_tela_atual]
-                tela_atual.desenha(self.window)
             else:
                 tela_atual = self.telas[self.indice_tela_atual]
                 tela_atual.desenha(self.window)
-                pygame.mixer.music.pause()
+                
