@@ -42,7 +42,7 @@ class Atrator:
         nave = pygame.transform.scale(self.imagem_atrator, self.tamanho_imagem) # Redefinir dimensão da imagem
         window.blit(nave, self.posicao) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
-class Bolinha(Atrator):
+class Bolinha():
     def __init__(self,s0,v0,quantidade,torre,tamanho):
         self.imagem = pygame.image.load('assets/img/bola+canhao.png')
         self.posicoes = []
