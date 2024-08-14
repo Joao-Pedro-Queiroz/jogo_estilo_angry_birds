@@ -1,5 +1,6 @@
 import pygame
 from random import randint, random
+import numpy as np
 class Canhao:
     def __init__(self):
         self.imagem = pygame.image.load('assets/img/canhao.png')
@@ -10,6 +11,31 @@ class Bolinha:
         self.imagem = pygame.image.load('assets/img/bola+canhao.png')
 
 class Atrator:
+    def __init__(self, posição, raio, gravidade, tamanho):
+        self.imagem_atrator = pygame.image.load('assets/img/planeta2.png')
+        self.tamanho_imagem = tamanho
+        self.posicao = posição   
+        self.raio = raio
+        self.gravidade = gravidade
+
+        
+    def calcula_atracao(self, posicao_jogador):
+        # Calcular vetor de distância
+        d_vec = self.posicao - posicao_jogador
+        d = np.linalg.norm(d_vec)
+
+        # Calcular aceleração gravitacional
+        if d > 0:
+            a = (self.gravidade / d**2) * (d_vec / d)
+        else:
+            a = np.array([0, 0])
+
+        return a
+    
+
+    def desenha(self, window):
+        nave = pygame.transform.scale(self.imagem_atrator, self.tamanho_imagem) # Redefinir dimensão da imagem
+        window.blit(nave, self.posicao) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
 
 class TelaInicial:
