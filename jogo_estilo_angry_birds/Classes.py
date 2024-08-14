@@ -52,7 +52,6 @@ class Bolinha():
         self.torre=torre
         self.tamanho=tamanho
         self.quantidade=quantidade
-        self.atrator = Atrator
         for i in range(quantidade):
             self.posicoes.append(self.s0)
             self.velocidades.append(self.v0)
