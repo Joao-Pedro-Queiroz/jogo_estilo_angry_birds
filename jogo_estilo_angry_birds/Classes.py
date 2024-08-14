@@ -60,15 +60,14 @@ class Bolinha():
             p = np.random.rand()
             self.velocidades[i]=self.elocidades[i]*(p+1) 
     
-    def atualiza_estado(self,posicoes,velocidades,torre):
+    def atualiza_estado(self,posicoes,velocidades,torre,aceleracao):
             for i in range(len(posicoes)):
                 if posicoes[i][0]<10 or posicoes[i][0]>390 or posicoes[i][1]<10 or posicoes[i][1]>390: # Se eu chegar ao limite da tela, reinicio a posição do personagem
                     posicoes[i]= self.s0
                     velocidades[i] = torre-self.v0
                     velocidades[i]= velocidades[i]*0.05
                 else:
-                    atracao = self.atrator.calcula_atracao(posicoes)
-                    velocidades[i]= velocidades[i] + atracao
+                    velocidades[i]= velocidades[i] + aceleracao
                     posicoes[i] = posicoes[i] +  velocidades[i]
     
     def desenha(self,window):
