@@ -68,7 +68,7 @@ class Bolinha:
     def atualiza_estado(self,torre,aceleracao):
             if self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590: # Se eu chegar ao limite da tela, reinicio a posição do personagem
                 self.posicoes= self.s0
-                self.velocidade = torre-self.v0
+                self.velocidade = pygame.mouse.get_pos() - self.v0
                 self.velocidade = self.velocidade*0.05
             else:
                 self.velocidade = self.velocidade + aceleracao
@@ -182,7 +182,7 @@ class Jogo:
         self.window = pygame.display.set_mode((self.largura_jogo, self.altura_jogo))
         self.fps = 60
         self.s0 = np.array([88, self.altura_jogo - 80])
-        self.v0 = np.array([-5, -5])
+        self.v0 = pygame.mouse.get_pos() - self.s0
         self.tamanho_bola = np.array([35, 35])
         self.tamanho_torre = np.array([100, 100])
         self.posicao_torre = np.array([430, 50])
