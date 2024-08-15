@@ -52,7 +52,7 @@ class Atrator:
 
     def desenha(self, window):
         nave = pygame.transform.scale(self.imagem_atrator, self.tamanho_imagem) # Redefinir dimensão da imagem
-        window.blit(nave, self.posicao) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+        window.blit(nave, self.posicao - 30) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
 class Bolinha:
     def __init__(self,s0,v0,posicao_torre,tamanho):
@@ -188,8 +188,8 @@ class Jogo:
         self.posicao_torre = np.array([430, 50])
         self.tamanho_canhao = np.array([80, 80])
         self.posicao_canhao = np.array([8, self.altura_jogo - self.tamanho_canhao[1]])
-        self.posicao_atrator = np.array([350, 200])
         self.tamanho_atrator = np.array([80, 80])
+        self.posicao_atrator = np.array([350, 200])
         self.raio_atrator = 40
         self.gravidade_atrator = 2000
         self.indice_tela_atual = 0
