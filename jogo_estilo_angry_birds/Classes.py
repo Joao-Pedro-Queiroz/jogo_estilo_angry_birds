@@ -55,7 +55,7 @@ class Atrator:
 
 class Bolinha():
     def __init__(self,s0,v0,posicao_torre,tamanho):
-        self.imagem = pygame.image.load('assets/img/bola+canhao.png')
+        self.imagem = pygame.image.load('jogo_estilo_angry_birds/assets/img/bola_canhao.png')
         self.s0 = np.array(s0)
         self.v0 = np.array(v0)
         self.torre=np.array(posicao_torre)
@@ -83,9 +83,10 @@ class TelaInicial:
         self.largura_jogo = largura_jogo
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
-        self.image_fundo = pygame.image.load('assets/img/starfield.png') # Carrega uma imagem
+        self.image_fundo = pygame.image.load('jogo_estilo_angry_birds/assets/img/starfield.png') # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
+        self.clock = pygame.time.Clock()
     
 
     def atualiza_estado(self):
@@ -95,6 +96,8 @@ class TelaInicial:
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 return 1
+        
+        self.clock.tick(self.fps)
         
         return 0
         
@@ -116,9 +119,10 @@ class telaJogo:
         self.largura_jogo = largura_jogo
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
-        self.image_fundo = pygame.image.load('assets/img/starfield.png') # Carrega uma imagem
+        self.image_fundo = pygame.image.load('jogo_estilo_angry_birds/assets/img/starfield.png') # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
+        self.clock = pygame.time.Clock()
         self.s0 = np.array(s0)
         self.v0 = np.array(v0)
         self.tamanho_bola = np.array(tamanho_bola)
@@ -130,10 +134,10 @@ class telaJogo:
         self.tamanho_atrator = np.array(tamanho_atrator)
         self.raio_atrator = raio_atrator
         self.gravidade_atrator = gravidade_atrator
-        bolinha = Bolinha(self.s0, self.v0, self.posicao_torre, self.tamanho_bola)
-        torre = Torre(self.tamanho_torre, self.posicao_torre)
-        canhao = Canhao(self.tamanho_canhao, self.posicao_canhao)
-        atrator = Atrator(self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)
+        self.bolinha = Bolinha(self.s0, self.v0, self.posicao_torre, self.tamanho_bola)
+        self.torre = Torre(self.tamanho_torre, self.posicao_torre)
+        self.canhao = Canhao(self.tamanho_canhao, self.posicao_canhao)
+        self.atrator = Atrator(self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)
 
 
     def atualiza_estado(self):
@@ -141,9 +145,13 @@ class telaJogo:
             if event.type == pygame.QUIT: 
                 return -1                                                                                                                                                                                       
         
-        a = self.atrator.calcula_atracao(self.bolinha.posicoes)
+        a = self.atrator.calcula_atracao(self.s0)
 
         self.bolinha.atualiza_estado(self.posicao_torre, a)
+
+        self.clock.tick(self.fps)
+
+        return 1
 
 
     def desenha(self, window):
@@ -184,7 +192,7 @@ class Jogo:
         self.raio_atrator = 40
         self.gravidade_atrator = 1000
         self.indice_tela_atual = 0
-        self.telas = [TelaInicial(self.largura_jogo, self.altura_jogo, self.fonte_padrao), telaJogo(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps, self.s0, self.v0, self.tamanho_bola, self.tamanho_torre, self.posicao_torre, self.tamanho_canhao, self.posicao_canhao, self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)]
+        self.telas = [TelaInicial(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps), telaJogo(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps, self.s0, self.v0, self.tamanho_bola, self.tamanho_torre, self.posicao_torre, self.tamanho_canhao, self.posicao_canhao, self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)]
 
     def game_loop(self):
         tela_atual = self.telas[self.indice_tela_atual]

@@ -1,4 +1,4 @@
-from jogo_estilo_angry_birds.Classes import Jogo
+from Classes import Jogo
 
 
 j = Jogo()
