@@ -183,9 +183,9 @@ class Jogo:
         self.fps = 60
         self.s0 = np.array([88, self.altura_jogo - 80])
         self.v0 = np.array([-5, -5])
-        self.tamanho_bola = np.array([30, 30])
+        self.tamanho_bola = np.array([35, 35])
         self.tamanho_torre = np.array([100, 100])
-        self.posicao_torre = np.array([500, 50])
+        self.posicao_torre = np.array([430, 50])
         self.tamanho_canhao = np.array([80, 80])
         self.posicao_canhao = np.array([8, self.altura_jogo - self.tamanho_canhao[1]])
         self.posicao_atrator = np.array([350, 200])
