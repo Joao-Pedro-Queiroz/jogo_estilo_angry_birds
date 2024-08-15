@@ -15,6 +15,7 @@ class Torre:
 class Canhao:
     def __init__(self,tamanho,posicao):
         self.imagem = pygame.image.load('jogo_estilo_angry_birds/assets/img/canhao.png')
+        self.imagem = pygame.transform.flip(self.imagem, True, False)
         self.tamanho_imagem= tamanho
         self.posicao = posicao
 
@@ -53,7 +54,7 @@ class Atrator:
         nave = pygame.transform.scale(self.imagem_atrator, self.tamanho_imagem) # Redefinir dimensão da imagem
         window.blit(nave, self.posicao) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
-class Bolinha():
+class Bolinha:
     def __init__(self,s0,v0,posicao_torre,tamanho):
         self.imagem = pygame.image.load('jogo_estilo_angry_birds/assets/img/bola_canhao.png')
         self.s0 = np.array(s0)
@@ -65,13 +66,13 @@ class Bolinha():
 
     
     def atualiza_estado(self,torre,aceleracao):
-            if self.posicoes[0]<10 or self.posicoes[0]>390 or self.posicoes[1]<10 or self.posicoes[1]>390: # Se eu chegar ao limite da tela, reinicio a posição do personagem
+            if self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590: # Se eu chegar ao limite da tela, reinicio a posição do personagem
                 self.posicoes= self.s0
-                self.velocidades = torre-self.v0
-                self.velocidades= self.velocidades*0.05
+                self.velocidade = torre-self.v0
+                self.velocidade = self.velocidade*0.05
             else:
-                self.velocidades= self.velocidades + aceleracao
-                self.posicoes = self.posicoes + self.velocidades
+                self.velocidade = self.velocidade + aceleracao
+                self.posicoes = self.posicoes + self.velocidade
 
     def desenha(self,window):
         bolinha = pygame.transform.scale(self.imagem, self.tamanho) # Redefinir dimensão da imagem
@@ -180,13 +181,13 @@ class Jogo:
         self.fonte_padrao = pygame.font.get_default_font() # Carrega a fonte padrão
         self.window = pygame.display.set_mode((self.largura_jogo, self.altura_jogo))
         self.fps = 60
-        self.s0 = np.array([50, 550])
+        self.s0 = np.array([88, self.altura_jogo - 80])
         self.v0 = np.array([-5, -5])
         self.tamanho_bola = np.array([30, 30])
         self.tamanho_torre = np.array([100, 100])
         self.posicao_torre = np.array([500, 50])
         self.tamanho_canhao = np.array([80, 80])
-        self.posicao_canhao = np.array([self.largura_jogo - self.tamanho_canhao[0], self.altura_jogo - self.tamanho_canhao[1] ])
+        self.posicao_canhao = np.array([8, self.altura_jogo - self.tamanho_canhao[1]])
         self.posicao_atrator = np.array([350, 200])
         self.tamanho_atrator = np.array([80, 80])
         self.raio_atrator = 40
