@@ -191,7 +191,7 @@ class Jogo:
         self.posicao_atrator = np.array([350, 200])
         self.tamanho_atrator = np.array([80, 80])
         self.raio_atrator = 40
-        self.gravidade_atrator = 1000
+        self.gravidade_atrator = 2000
         self.indice_tela_atual = 0
         self.telas = [TelaInicial(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps), telaJogo(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps, self.s0, self.v0, self.tamanho_bola, self.tamanho_torre, self.posicao_torre, self.tamanho_canhao, self.posicao_canhao, self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)]
 
