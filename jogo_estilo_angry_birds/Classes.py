@@ -69,9 +69,9 @@ class Bolinha:
             if self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590: # Se eu chegar ao limite da tela, reinicio a posição do personagem
                 self.posicoes= self.s0
                 self.velocidade = pygame.mouse.get_pos() - self.v0
-                self.velocidade = self.velocidade*0.05
             else:
                 self.velocidade = self.velocidade + aceleracao
+                self.velocidade = self.velocidade * 10 / np.linalg.norm(self.velocidade)
                 self.posicoes = self.posicoes + self.velocidade
 
     def desenha(self,window):
