@@ -65,15 +65,16 @@ class Bolinha:
         self.velocidade = self.v0
 
     
-    def atualiza_estado(self,aceleracao):
-            if self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590: # Se eu chegar ao limite da tela, reinicio a posição do personagem
+    def atualiza_estado(self,aceleracao,atrator):
+            if self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590 or ((self.posicoes[0]>=atrator[0]-20 and self.posicoes[0]<=atrator[0]+20) and (self.posicoes[1]>=atrator[1]-10 and self.posicoes[1]<=atrator[1]+10)): # Se eu chegar ao limite da tela, reinicio a posição do personagem
                 self.posicoes= self.s0
                 self.velocidade = pygame.mouse.get_pos() - self.s0
+                return False
             else:
                 self.velocidade = self.velocidade + aceleracao
                 self.velocidade = self.velocidade * 10 / np.linalg.norm(self.velocidade)
                 self.posicoes = self.posicoes + self.velocidade * 0.25
-
+            return True
     def desenha(self,window):
         bolinha = pygame.transform.scale(self.imagem, self.tamanho) # Redefinir dimensão da imagem
         window.blit(bolinha, self.posicoes) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
@@ -139,18 +140,24 @@ class telaJogo:
         self.torre = Torre(self.tamanho_torre, self.posicao_torre)
         self.canhao = Canhao(self.tamanho_canhao, self.posicao_canhao)
         self.atrator = Atrator(self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)
-
+        self.atirou = False
 
     def atualiza_estado(self):
         for event in pygame.event.get(): # Retorna uma lista com todos os eventos que ocorreram desde a última vez que essa função foi chamada
             if event.type == pygame.QUIT: 
                 return -1                                                                                                                                                                                       
+                        
+            elif (self.bolinha.posicoes[0]>=self.posicao_torre[0]-10 and self.bolinha.posicoes[0]<=self.posicao_torre[0]+110)and (self.bolinha.posicoes[1]>=self.posicao_torre[1]-20 and self.bolinha.posicoes[1]<=self.posicao_torre[1]+120):
+                return 0
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                self.atirou = True
         
         a = self.atrator.calcula_atracao(self.bolinha.posicoes)
-
-        self.bolinha.atualiza_estado(a)
-
+        if self.atirou:
+            if not self.bolinha.atualiza_estado(a,self.posicao_atrator):
+                self.atirou = False
         self.clock.tick(self.fps)
+
 
         return 1
 
@@ -160,8 +167,8 @@ class telaJogo:
 
         fundo = pygame.transform.scale(self.image_fundo, self.tamanho_fundo) # Redefinir dimensão da imagem
         window.blit(fundo, (0, 0)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
-
-        self.bolinha.desenha(window)
+        if self.atirou:
+            self.bolinha.desenha(window)
 
         self.torre.desenha(window)
 
@@ -191,7 +198,7 @@ class Jogo:
         self.tamanho_atrator = np.array([80, 80])
         self.posicao_atrator = np.array([350, 200])
         self.raio_atrator = 40
-        self.gravidade_atrator = 2000
+        self.gravidade_atrator = 500
         self.indice_tela_atual = 0
         self.telas = [TelaInicial(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps), telaJogo(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps, self.s0, self.v0, self.tamanho_bola, self.tamanho_torre, self.posicao_torre, self.tamanho_canhao, self.posicao_canhao, self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)]
 
