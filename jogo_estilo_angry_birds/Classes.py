@@ -150,7 +150,7 @@ class telaJogo:
             if event.type ==pygame.MOUSEBUTTONDOWN:
                 self.atirou = True
         
-        if self.posicao_torre[0] <= self.bolinha.posicoes[0] <= self.posicao_torre[0] + self.tamanho_torre[0] - 20 and self.posicao_torre[1] <= self.bolinha.posicoes[1] <= self.posicao_torre[1] + self.tamanho_torre[1]:
+        if self.posicao_torre[0] <= self.bolinha.posicoes[0] <= self.posicao_torre[0] + self.tamanho_torre[0] - 10 and self.posicao_torre[1] <= self.bolinha.posicoes[1] <= self.posicao_torre[1] + self.tamanho_torre[1]:
                 return -1
 
         a = self.atrator.calcula_atracao(self.bolinha.posicoes)
