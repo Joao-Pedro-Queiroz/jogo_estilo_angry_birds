@@ -5,6 +5,7 @@ Projeto de jogo usando pygame realizado em duplas dos alunos do terceiro semestr
 ## História do jogo
 
 O Universo entrou em colapso!!!
+
 Uma fenda foi averta no unverso trazendo diversos estruturas, ferramentas e utencílios de diversas linhas temporais.
 
 Você, sim, você mesmo, foi contratado pela empresa Royal Space Enterprise para destruir as torres que estão flutuando no espaço.

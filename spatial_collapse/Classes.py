@@ -85,6 +85,7 @@ class TelaInicial:
         self.largura_jogo = largura_jogo
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
+        self.font_cabecalho =  pygame.font.Font(fonte_padrao, 55)
         self.image_fundo = pygame.image.load('spatial_collapse/assets/img/starfield.png') # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
@@ -110,8 +111,11 @@ class TelaInicial:
         fundo = pygame.transform.scale(self.image_fundo, self.tamanho_fundo) # Redefinir dimensão da imagem
         window.blit(fundo, (0, 0)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
+        cabeçalho = self.font_cabecalho.render(f'Spacial Collapse', True, (0, 0, 0)) # Cria uma imagem do texto
+        window.blit(cabeçalho, (50, 220)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+
         texto_inicio = self.font_texto.render(f'CLIQUE "EBTER" PARA INICIAR O JOGO', True, (255, 255, 255)) # Cria uma imagem do texto
-        window.blit(texto_inicio, (100, 300)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+        window.blit(texto_inicio, (100, 295)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
         pygame.display.update()
 
@@ -151,7 +155,7 @@ class telaJogo:
                 self.atirou = True
         
         if self.posicao_torre[0] <= self.bolinha.posicoes[0] <= self.posicao_torre[0] + self.tamanho_torre[0] - 10 and self.posicao_torre[1] <= self.bolinha.posicoes[1] <= self.posicao_torre[1] + self.tamanho_torre[1]:
-                return -1
+                return 2
 
         a = self.atrator.calcula_atracao(self.bolinha.posicoes)
         if self.atirou:
@@ -181,6 +185,46 @@ class telaJogo:
         pygame.display.update()
 
 
+class TelaFinal:
+    def __init__(self, largura_jogo, altura_jogo, fonte_padrao, FPS):
+        self.largura_jogo = largura_jogo
+        self.altura_jogo = altura_jogo
+        self.font_texto = pygame.font.Font(fonte_padrao, 18)
+        self.font_cabecalho =  pygame.font.Font(fonte_padrao, 55)
+        self.image_fundo = pygame.image.load('spatial_collapse/assets/img/starfield.png') # Carrega uma imagem
+        self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
+        self.fps = FPS
+        self.clock = pygame.time.Clock()
+    
+
+    def atualiza_estado(self):
+        for event in pygame.event.get(): # Retorna uma lista com todos os eventos que ocorreram desde a última vez que essa função foi chamada
+            if event.type == pygame.QUIT: 
+                return -1
+
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                return -1
+        
+        self.clock.tick(self.fps)
+        
+        return 2
+        
+
+    def desenha(self, window):
+        window.fill((0, 0, 0))
+
+        fundo = pygame.transform.scale(self.image_fundo, self.tamanho_fundo) # Redefinir dimensão da imagem
+        window.blit(fundo, (0, 0)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+
+        cabeçalho = self.font_cabecalho.render(f'Parabéns', True, (255, 255, 0)) # Cria uma imagem do texto
+        window.blit(cabeçalho, (150, 220)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+
+        texto_inicio = self.font_texto.render(f'CLIQUE "EBTER" PARA FECHAR O JOGO', True, (255, 255, 255)) # Cria uma imagem do texto
+        window.blit(texto_inicio, (100, 295)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+
+        pygame.display.update()
+
+
 class Jogo:
     def __init__(self):
         pygame.init()
@@ -190,7 +234,7 @@ class Jogo:
         self.window = pygame.display.set_mode((self.largura_jogo, self.altura_jogo))
         self.fps = 60
         self.indice_tela_atual = 0
-        self.telas = [TelaInicial(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps), telaJogo(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps)]
+        self.telas = [TelaInicial(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps), telaJogo(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps), TelaFinal(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps)]
 
     def game_loop(self):
         tela_atual = self.telas[self.indice_tela_atual]
