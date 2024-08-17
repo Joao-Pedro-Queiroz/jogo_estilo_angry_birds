@@ -117,7 +117,7 @@ class TelaInicial:
 
 
 class telaJogo:
-    def __init__(self, largura_jogo, altura_jogo, fonte_padrao, FPS, s0, v0, tamanho_bola, tamanho_torre, posicao_torre, tamanho_canhao, posicao_canhao, posicao_atrator, raio_atrator, gravidade_atrator, tamanho_atrator):
+    def __init__(self, largura_jogo, altura_jogo, fonte_padrao, FPS):
         self.largura_jogo = largura_jogo
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
@@ -125,17 +125,17 @@ class telaJogo:
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
         self.clock = pygame.time.Clock()
-        self.s0 = np.array(s0)
-        self.v0 = np.array(v0)
-        self.tamanho_bola = np.array(tamanho_bola)
-        self.tamanho_torre = np.array(tamanho_torre)
-        self.posicao_torre = np.array(posicao_torre)
-        self.tamanho_canhao = np.array(tamanho_canhao)
-        self.posicao_canhao = np.array(posicao_canhao)
-        self.posicao_atrator = np.array(posicao_atrator)
-        self.tamanho_atrator = np.array(tamanho_atrator)
-        self.raio_atrator = raio_atrator
-        self.gravidade_atrator = gravidade_atrator
+        self.s0 = np.array([88, self.altura_jogo - 80])
+        self.v0 = pygame.mouse.get_pos() - self.s0
+        self.tamanho_bola = np.array([35, 35])
+        self.tamanho_torre = np.array([100, 100])
+        self.posicao_torre = np.array([430, 50])
+        self.tamanho_canhao = np.array([80, 80])
+        self.posicao_canhao = np.array([8, self.altura_jogo - self.tamanho_canhao[1]])
+        self.tamanho_atrator = np.array([80, 80])
+        self.posicao_atrator = np.array([350, 200])
+        self.raio_atrator = 40
+        self.gravidade_atrator = 500
         self.bolinha = Bolinha(self.s0, self.v0, self.posicao_torre, self.tamanho_bola)
         self.torre = Torre(self.tamanho_torre, self.posicao_torre)
         self.canhao = Canhao(self.tamanho_canhao, self.posicao_canhao)
@@ -189,19 +189,8 @@ class Jogo:
         self.fonte_padrao = pygame.font.get_default_font() # Carrega a fonte padrão
         self.window = pygame.display.set_mode((self.largura_jogo, self.altura_jogo))
         self.fps = 60
-        self.s0 = np.array([88, self.altura_jogo - 80])
-        self.v0 = pygame.mouse.get_pos() - self.s0
-        self.tamanho_bola = np.array([35, 35])
-        self.tamanho_torre = np.array([100, 100])
-        self.posicao_torre = np.array([430, 50])
-        self.tamanho_canhao = np.array([80, 80])
-        self.posicao_canhao = np.array([8, self.altura_jogo - self.tamanho_canhao[1]])
-        self.tamanho_atrator = np.array([80, 80])
-        self.posicao_atrator = np.array([350, 200])
-        self.raio_atrator = 40
-        self.gravidade_atrator = 500
         self.indice_tela_atual = 0
-        self.telas = [TelaInicial(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps), telaJogo(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps, self.s0, self.v0, self.tamanho_bola, self.tamanho_torre, self.posicao_torre, self.tamanho_canhao, self.posicao_canhao, self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)]
+        self.telas = [TelaInicial(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps), telaJogo(self.largura_jogo, self.altura_jogo, self.fonte_padrao, self.fps)]
 
     def game_loop(self):
         tela_atual = self.telas[self.indice_tela_atual]
