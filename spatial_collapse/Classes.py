@@ -114,7 +114,7 @@ class TelaInicial:
         cabeçalho = self.font_cabecalho.render(f'Spacial Collapse', True, (0, 0, 0)) # Cria uma imagem do texto
         window.blit(cabeçalho, (50, 220)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
-        texto_inicio = self.font_texto.render(f'CLIQUE "EBTER" PARA INICIAR O JOGO', True, (255, 255, 255)) # Cria uma imagem do texto
+        texto_inicio = self.font_texto.render(f'CLIQUE "ENTER" PARA INICIAR O JOGO', True, (255, 255, 255)) # Cria uma imagem do texto
         window.blit(texto_inicio, (100, 295)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
         pygame.display.update()
@@ -219,7 +219,7 @@ class TelaFinal:
         cabeçalho = self.font_cabecalho.render(f'Parabéns', True, (255, 255, 0)) # Cria uma imagem do texto
         window.blit(cabeçalho, (150, 220)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
-        texto_inicio = self.font_texto.render(f'CLIQUE "EBTER" PARA FECHAR O JOGO', True, (255, 255, 255)) # Cria uma imagem do texto
+        texto_inicio = self.font_texto.render(f'CLIQUE "ENTER" PARA FECHAR O JOGO', True, (255, 255, 255)) # Cria uma imagem do texto
         window.blit(texto_inicio, (100, 295)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
         pygame.display.update()
