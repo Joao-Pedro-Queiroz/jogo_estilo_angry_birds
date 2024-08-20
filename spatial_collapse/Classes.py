@@ -1,6 +1,30 @@
 import pygame
 from random import randint, random
 import numpy as np
+class Buraco:
+    def __init__(self,tamanho,posicao,gravidade):
+        self.imagem = pygame.image.load('spatial_collapse/assets/img/buraco_minhoca.png')
+        self.tamanho = tamanho 
+        self.posicao =posicao
+        self.gravidade = gravidade
+
+    def calcula_atracao(self, posicao_jogador):
+        # Calcular vetor de distância
+        d_vec = self.posicao[0] - posicao_jogador
+        d = np.linalg.norm(d_vec)
+
+        # Calcular aceleração gravitacional
+        if d > 0:
+            a = (self.gravidade / d**2) * (d_vec / d)
+        else:
+            a = np.array([0, 0])
+
+        return a
+    def desenha(self,window):
+        for i in range(len(self.posicao)):
+            buraco = pygame.transform.scale(self.imagem, self.tamanho) # Redefinir dimensão da imagem
+            window.blit(buraco, self.posicao[i]-30) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+
 class Torre:
     def __init__(self,tamanho,posicao):
         self.imagem = pygame.image.load('spatial_collapse/assets/img/torre.png')
@@ -52,7 +76,7 @@ class Atrator:
 
     def desenha(self, window):
         nave = pygame.transform.scale(self.imagem_atrator, self.tamanho_imagem) # Redefinir dimensão da imagem
-        window.blit(nave, self.posicao - 30) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
+        window.blit(nave, self.posicao) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
 class Bolinha:
     def __init__(self,s0,v0,posicao_torre,tamanho):
@@ -65,8 +89,11 @@ class Bolinha:
         self.velocidade = self.v0
 
     
-    def atualiza_estado(self,aceleracao,atrator):
-            if self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590 or ((self.posicoes[0]>=atrator[0]-20 and self.posicoes[0]<=atrator[0]+20) and (self.posicoes[1]>=atrator[1]-10 and self.posicoes[1]<=atrator[1]+10)): # Se eu chegar ao limite da tela, reinicio a posição do personagem
+    def atualiza_estado(self,aceleracao,atrator,buraco):
+            if buraco[0][0] <= self.posicoes[0] <= buraco[0][0] + 70 and buraco[0][1] <= self.posicoes[1] <= buraco[0][1] + 70:
+                self.posicoes = buraco[1] 
+                
+            elif self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590 or ((self.posicoes[0]>=atrator[0]-20 and self.posicoes[0]<=atrator[0]+20) and (self.posicoes[1]>=atrator[1]-10 and self.posicoes[1]<=atrator[1]+10)): # Se eu chegar ao limite da tela, reinicio a posição do personagem
                 self.posicoes= self.s0
                 self.velocidade = pygame.mouse.get_pos() - self.s0
                 return False
@@ -138,13 +165,17 @@ class telaJogo:
         self.posicao_canhao = np.array([8, self.altura_jogo - self.tamanho_canhao[1]])
         self.tamanho_atrator = np.array([80, 80])
         self.posicao_atrator = np.array([350, 200])
+        self.tamanho_buraco = np.array([80, 80])
+        self.posicao_buraco = [np.array([100, 100]),np.array([450, 450])]
         self.raio_atrator = 40
         self.gravidade_atrator = 500
+        self.gravidade_buraco = 1000
         self.bolinha = Bolinha(self.s0, self.v0, self.posicao_torre, self.tamanho_bola)
         self.torre = Torre(self.tamanho_torre, self.posicao_torre)
         self.canhao = Canhao(self.tamanho_canhao, self.posicao_canhao)
         self.atrator = Atrator(self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)
         self.atirou = False
+        self.buraco = Buraco(self.tamanho_buraco,self.posicao_buraco,self.gravidade_buraco)
 
     def atualiza_estado(self):
         for event in pygame.event.get(): # Retorna uma lista com todos os eventos que ocorreram desde a última vez que essa função foi chamada
@@ -157,9 +188,11 @@ class telaJogo:
         if self.posicao_torre[0] <= self.bolinha.posicoes[0] <= self.posicao_torre[0] + self.tamanho_torre[0] - 10 and self.posicao_torre[1] <= self.bolinha.posicoes[1] <= self.posicao_torre[1] + self.tamanho_torre[1]:
                 return 2
 
-        a = self.atrator.calcula_atracao(self.bolinha.posicoes)
+        a1 = self.atrator.calcula_atracao(self.bolinha.posicoes)
+        a2 = self.buraco.calcula_atracao(self.bolinha.posicoes)
+        v = a1+a2
         if self.atirou:
-            if not self.bolinha.atualiza_estado(a,self.posicao_atrator):
+            if not self.bolinha.atualiza_estado(v,self.posicao_atrator,self.posicao_buraco):
                 self.atirou = False
         self.clock.tick(self.fps)
 
@@ -180,7 +213,7 @@ class telaJogo:
         self.atrator.desenha(window)
 
         self.canhao.desenha(window)
-
+        self.buraco.desenha(window)
 
         pygame.display.update()
 
