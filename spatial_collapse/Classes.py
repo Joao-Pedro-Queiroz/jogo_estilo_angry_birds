@@ -89,13 +89,14 @@ class Bolinha:
         self.velocidade = self.v0
 
     
-    def atualiza_estado(self,aceleracao,atrator,buraco):
+    def atualiza_estado(self,aceleracao,atrator,buraco,reiniciou):
+            if reiniciou:
+                self.velocidade = pygame.mouse.get_pos() - self.s0
             if buraco[0][0] <= self.posicoes[0] <= buraco[0][0] + 70 and buraco[0][1] <= self.posicoes[1] <= buraco[0][1] + 70:
                 self.posicoes = buraco[1] 
                 
             elif self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590 or ((self.posicoes[0]>=atrator[0]-20 and self.posicoes[0]<=atrator[0]+20) and (self.posicoes[1]>=atrator[1]-10 and self.posicoes[1]<=atrator[1]+10)): # Se eu chegar ao limite da tela, reinicio a posição do personagem
                 self.posicoes= self.s0
-                self.velocidade = pygame.mouse.get_pos() - self.s0
                 return False
             else:
                 self.velocidade = self.velocidade + aceleracao
@@ -176,14 +177,17 @@ class telaJogo:
         self.atrator = Atrator(self.posicao_atrator, self.raio_atrator, self.gravidade_atrator, self.tamanho_atrator)
         self.atirou = False
         self.buraco = Buraco(self.tamanho_buraco,self.posicao_buraco,self.gravidade_buraco)
+        self.reiniciou = False
 
     def atualiza_estado(self):
         for event in pygame.event.get(): # Retorna uma lista com todos os eventos que ocorreram desde a última vez que essa função foi chamada
+            self.reiniciou = False
             if event.type == pygame.QUIT: 
                 return -1                                                                                                                                                                                       
                         
             if event.type ==pygame.MOUSEBUTTONDOWN:
                 self.atirou = True
+                self.reiniciou = True 
         
         if self.posicao_torre[0] <= self.bolinha.posicoes[0] <= self.posicao_torre[0] + self.tamanho_torre[0] - 10 and self.posicao_torre[1] <= self.bolinha.posicoes[1] <= self.posicao_torre[1] + self.tamanho_torre[1]:
                 return 2
@@ -192,7 +196,7 @@ class telaJogo:
         a2 = self.buraco.calcula_atracao(self.bolinha.posicoes)
         v = a1+a2
         if self.atirou:
-            if not self.bolinha.atualiza_estado(v,self.posicao_atrator,self.posicao_buraco):
+            if not self.bolinha.atualiza_estado(v,self.posicao_atrator,self.posicao_buraco,self.reiniciou):
                 self.atirou = False
         self.clock.tick(self.fps)
 
