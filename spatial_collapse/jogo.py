@@ -1,4 +1,5 @@
-from spatial_collapse.Classes import Jogo
+from Classes import Jogo
+
 def main():
     j = Jogo()
     Jogo.atual = j
