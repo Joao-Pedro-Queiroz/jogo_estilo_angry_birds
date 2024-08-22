@@ -1,3 +1,4 @@
+import os
 from setuptools import setup, find_packages
 
 setup(
@@ -7,9 +8,9 @@ setup(
     install_requires = [
     ],
     package_data={
-        '': ['img/*.png', 'spatial_collapse/assets/img/*.png',]
+        '': [os.path.join('img', '*.png'), os.path.join('spatial_collapse', 'assets', 'img', '*.png')],
     },
-  entry_points={
+    entry_points={
         'console_scripts': [
             'spatial_collapse=spatial_collapse.jogo:main',
         ],
@@ -27,10 +28,3 @@ setup(
     ],
     python_requires='>=3.6',
 )
-    # entry_points={
-    #     'console_scripts': [
-    #         'spatial_collapse=spatial_collapse.jogo:main',
-    #     ],
-    # }
-
-
