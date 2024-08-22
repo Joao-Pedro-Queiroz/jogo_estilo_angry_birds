@@ -1,4 +1,4 @@
-from Classes import Jogo
+from spatial_collapse.Classes import Jogo
 
 def main():
     j = Jogo()
