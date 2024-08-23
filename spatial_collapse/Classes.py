@@ -1,9 +1,11 @@
 import pygame
 from random import randint, random
 import numpy as np
+import os
 class Buraco:
     def __init__(self,tamanho,posicao,gravidade):
-        self.imagem = pygame.image.load('assets/img/buraco_minhoca.png')
+        img_path = os.path.join('assets', 'img', 'buraco_minhoca.png')
+        self.imagem = pygame.image.load(img_path)
         self.tamanho = tamanho 
         self.posicao =posicao
         self.gravidade = gravidade
@@ -27,7 +29,8 @@ class Buraco:
 
 class Torre:
     def __init__(self,tamanho,posicao):
-        self.imagem = pygame.image.load('assets/img/torre.png')
+        img_path = os.path.join('assets', 'img', 'torre.png')
+        self.imagem = pygame.image.load(img_path)
         self.tamanho = tamanho 
         self.posicao =posicao
 
@@ -38,7 +41,8 @@ class Torre:
 
 class Canhao:
     def __init__(self,tamanho,posicao):
-        self.imagem = pygame.image.load('assets/img/canhao.png')
+        img_path = os.path.join('assets', 'img', 'canhao.png')
+        self.imagem = pygame.image.load(img_path)
         self.imagem = pygame.transform.flip(self.imagem, True, False)
         self.tamanho_imagem= tamanho
         self.posicao = posicao
@@ -52,7 +56,8 @@ class Canhao:
 
 class Atrator:
     def __init__(self, posição, raio, gravidade, tamanho):
-        self.imagem_atrator = pygame.image.load('assets/img/planeta1.png')
+        img_path = os.path.join('assets', 'img', 'planeta1.png')
+        self.imagem_atrator = pygame.image.load(img_path)
         self.tamanho_imagem = tamanho
         self.posicao = posição   
         self.raio = raio
@@ -80,7 +85,8 @@ class Atrator:
 
 class Bolinha:
     def __init__(self,s0,v0,posicao_torre,tamanho):
-        self.imagem = pygame.image.load('assets/img/bola_canhao.png')
+        img_path = os.path.join('assets', 'img', 'bola_canhao.png')
+        self.imagem = pygame.image.load(img_path)
         self.s0 = np.array(s0)
         self.v0 = np.array(v0)
         self.torre=np.array(posicao_torre)
@@ -114,7 +120,8 @@ class TelaInicial:
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
         self.font_cabecalho =  pygame.font.Font(fonte_padrao, 55)
-        self.image_fundo = pygame.image.load('assets/img/starfield.png') # Carrega uma imagem
+        img_path = os.path.join('assets', 'img', 'starfield.png')
+        self.image_fundo = pygame.image.load(img_path) # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
         self.clock = pygame.time.Clock()
@@ -153,7 +160,8 @@ class telaJogo:
         self.largura_jogo = largura_jogo
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
-        self.image_fundo = pygame.image.load('assets/img/starfield.png') # Carrega uma imagem
+        img_path = os.path.join('assets', 'img', 'starfield.png')
+        self.image_fundo = pygame.image.load(img_path) # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
         self.clock = pygame.time.Clock()
@@ -228,7 +236,8 @@ class TelaFinal:
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
         self.font_cabecalho =  pygame.font.Font(fonte_padrao, 55)
-        self.image_fundo = pygame.image.load('assets/img/starfield.png') # Carrega uma imagem
+        img_path = os.path.join('assets', 'img', 'starfield.png')
+        self.image_fundo = pygame.image.load(img_path) # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
         self.clock = pygame.time.Clock()
