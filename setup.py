@@ -7,7 +7,7 @@ setup(
     install_requires = [
     ],
     package_data={
-        '': ['img/*.png', 'spatial_collapse/assets/img/*.png',]
+        '': ['assets/img/*.png', 'spatial_collapse/assets/img/*.png',]
     },
   entry_points={
         'console_scripts': [
