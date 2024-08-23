@@ -114,7 +114,7 @@ class TelaInicial:
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
         self.font_cabecalho =  pygame.font.Font(fonte_padrao, 55)
-        self.image_fundo = pygame.image.load('spatial_collapse/assets/img/starfield.png') # Carrega uma imagem
+        self.image_fundo = pygame.image.load('spatial_collapse/spatial_collapse/assets/img/starfield.png') # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
         self.clock = pygame.time.Clock()
@@ -153,7 +153,7 @@ class telaJogo:
         self.largura_jogo = largura_jogo
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
-        self.image_fundo = pygame.image.load('spatial_collapse/assets/img/starfield.png') # Carrega uma imagem
+        self.image_fundo = pygame.image.load('spatial_collapse/spatial_collapse/assets/img/starfield.png') # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
         self.clock = pygame.time.Clock()
@@ -228,7 +228,7 @@ class TelaFinal:
         self.altura_jogo = altura_jogo
         self.font_texto = pygame.font.Font(fonte_padrao, 18)
         self.font_cabecalho =  pygame.font.Font(fonte_padrao, 55)
-        self.image_fundo = pygame.image.load('spatial_collapse/assets/img/starfield.png') # Carrega uma imagem
+        self.image_fundo = pygame.image.load('spatial_collapse/spatial_collapse/assets/img/starfield.png') # Carrega uma imagem
         self.tamanho_fundo = np.array([largura_jogo, altura_jogo])
         self.fps = FPS
         self.clock = pygame.time.Clock()
