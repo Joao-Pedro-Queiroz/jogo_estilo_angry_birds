@@ -7,7 +7,7 @@ setup(
     install_requires=[],
     include_package_data=True,  # Isso permite que os dados especificados no MANIFEST.in sejam incluídos
     package_data={
-        'spatial_collapse': ['assets/img/*.png'],  # Caminho relativo ao pacote
+     '': ['img/*.png', 'spatial_collapse/assets/img/*.png',],  # Caminho relativo ao pacote
     },
     entry_points={
         'console_scripts': [
