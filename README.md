@@ -6,7 +6,7 @@ Projeto de jogo usando pygame realizado em duplas dos alunos do terceiro semestr
 
 O Universo entrou em colapso!!!
 
-Uma fenda foi averta no unverso trazendo diversos estruturas, ferramentas e utencílios de diversas linhas temporais.
+Uma fenda foi aberta no unverso trazendo diversos estruturas, ferramentas e utencílios de diversas linhas temporais.
 
 Você, sim, você mesmo, foi contratado pela empresa Royal Space Enterprise para destruir as torres que estão flutuando no espaço.
 
@@ -16,8 +16,8 @@ BOA SORTE CADETE!!!
 
 ## Como executar o jogo
 
-Para desfrutar da experiência do jogo, é necessário baixar uma versão do Python no computador. Depois de baixar o Python, abra um terminal e execute o comando “pip install pygame” para baixar a biblioteca necessária para executar o jogo. Após fazer o download do pygame, execute o comando “cd caminho” no terminal, substituindo o “caminho” pelo path da pasta onde está localizado o arquivo do jogo e, após executar esse comando, escreva o último comando “python arquivo”, substituindo “arquivo” pelo nome do arquivo do jogo, para finalmente poder jogar e desfrutar do jogo.
+Para desfrutar da experiência do jogo, é necessário baixar uma versão do Python no computador. Depois de baixar o Python, abra um terminal e execute o comando 'pip install pygame' e 'pip install numpy' para baixar as bibliotecas necessária para executar o jogo. Após fazer o download do pygame, execute o comando 'cd caminho' no terminal, substituindo o 'caminho' pelo path da pasta onde está localizado o arquivo do jogo e, após executar esse comando, escreva o último comando 'python arquivo' substituindo 'arquivo' pelo nome do arquivo do jogo, para finalmente poder jogar e desfrutar do jogo.
 
 ## Como jogar
 
-Botão esquerdo do mouse -> atira a bala de canhão na direção do mouse
+Botão esquerdo do mouse -> atira a bala de canhão na direção do mouse
