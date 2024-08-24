@@ -100,7 +100,7 @@ class Bolinha:
     def atualiza_estado(self,aceleracao,atrator,buraco,reiniciou):
             if reiniciou:
                 self.velocidade = pygame.mouse.get_pos() - self.s0
-            if buraco[0][0] <= self.posicoes[0] <= buraco[0][0] + 70 and buraco[0][1] <= self.posicoes[1] <= buraco[0][1] + 70:
+            if buraco[0][0]-20 <= self.posicoes[0] <= buraco[0][0] + 40 and buraco[0][1]-20 <= self.posicoes[1] <= buraco[0][1] + 40:
                 self.posicoes = buraco[1] 
                 
             elif self.posicoes[0]<10 or self.posicoes[0]>540 or self.posicoes[1]<10 or self.posicoes[1]>590 or ((self.posicoes[0]>=atrator[0]-20 and self.posicoes[0]<=atrator[0]+20) and (self.posicoes[1]>=atrator[1]-10 and self.posicoes[1]<=atrator[1]+10)): # Se eu chegar ao limite da tela, reinicio a posição do personagem
