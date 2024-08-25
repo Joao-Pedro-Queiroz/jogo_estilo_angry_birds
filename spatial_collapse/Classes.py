@@ -148,7 +148,7 @@ class TelaInicial:
         fundo = pygame.transform.scale(self.image_fundo, self.tamanho_fundo) # Redefinir dimensão da imagem
         window.blit(fundo, (0, 0)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
-        cabeçalho = self.font_cabecalho.render(f'Spacial Collapse', True, (0, 0, 0)) # Cria uma imagem do texto
+        cabeçalho = self.font_cabecalho.render(f'Spatial Collapse', True, (0, 0, 0)) # Cria uma imagem do texto
         window.blit(cabeçalho, (50, 220)) # Desenha a imagem já carregada por pygame.image.load em window na posição (x, y).
 
         texto_inicio = self.font_texto.render(f'CLIQUE "ENTER" PARA INICIAR O JOGO', True, (255, 255, 255)) # Cria uma imagem do texto
